@@ -1,6 +1,6 @@
 import FieldPage from "../../pageObjects/fieldAPIPO";
 
-describe('ERP - Fields API Test Automation', () => {
+describe('ERP - Mobile API - Fields API Test Automation', () => {
 
 
   before(() => {
@@ -13,7 +13,7 @@ describe('ERP - Fields API Test Automation', () => {
       return false
     })
     const fieldPage = new FieldPage()
-    fieldPage.getAllFieldsAPI()
+    fieldPage.getAllFieldsMobAPI()
 
   });
 

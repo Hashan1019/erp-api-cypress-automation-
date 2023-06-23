@@ -1,0 +1,30 @@
+{
+   
+    "getAllOperationEntitiesWebUrl": "http://20.198.233.3:6010/api/OperationEntity/GetAllFactories",
+    "getFactoriesByGroupIDWebUrl": "http://20.198.233.3:6010/api/OperationEntity/GetAllFactoriesByGroupID",
+    "postSaveFactoryWebUrl": "http://20.198.233.3:6010/api/OperationEntity/SaveFactory",
+
+    "getAllFACWebUrl": "http://20.198.233.3:6010/api/Factory/GetAllFactories",
+
+
+
+    "getAllOperationEntitiesMobileUrl": "http://20.198.233.3:5080/api/OperationEntity/GetAllFactories",
+    "getFactoriesByGroupIDMobileUrl": "http://20.198.233.3:5080/api/OperationEntity/GetAllFactoriesByGroupID",
+    "postSaveFactoryMobileUrl": "http://20.198.233.3:5080/api/OperationEntity/SaveFactory",
+
+
+    "queryStringOperationEntityID": "groupID=1",
+
+    "operationEntityID": 0,
+    "operationEntityCode": "12",
+    "operationEntityName": "Test Fac",
+    "operationEntityLocation": "Test",
+    "enityTypeID": 1,
+    "groupID": 1,
+    "isErpEnabled": true,
+    "isActive": true,
+    "createdBy": 0,
+    "createdDate": "2023-06-23T05:51:09.525Z",
+    "modifiedBy": 0,
+    "modifiedDate": "2023-06-23T05:51:09.525Z"
+}

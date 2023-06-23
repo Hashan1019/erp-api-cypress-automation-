@@ -6,7 +6,7 @@ const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 module.exports = defineConfig({
 
   env: {
-    serviceUrl: 'http://20.198.233.3:5080/',
+    //mobileServiceUrl: 'http://20.198.233.3:5080/',
   },
   e2e: {
     setupNodeEvents(on, config) {

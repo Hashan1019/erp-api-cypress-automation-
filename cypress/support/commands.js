@@ -17,8 +17,8 @@ Cypress.Commands.add('successLogResponseDetails', (status, statusCode, data, mes
 });
 
 //log failed response 
-Cypress.Commands.add('errorLogResponseDetails', (status, statusCode, message) => {
-  cy.fail('Received an error! Here is the error details,' + ' Status =' + '' + status + ',' + ' Status Code =' + statusCode + ',' + ' Message =' + message);
+Cypress.Commands.add('errorLogResponseDetails', (status, statusCode, data, message) => {
+  cy.fail('Received an error! Here is the error details,' + ' Status = ' + '' + status + ',' + ' Status Code = ' + statusCode + ',' + ' Data = ' + data + ',' + ' Message = ' + message);
 });
 
 
@@ -77,9 +77,9 @@ Cypress.Commands.add('aesDecryption', (cipherText) => {
 
 //AES Encrypt Descrypt get function
 Cypress.Commands.add('commonEncryptyDecryptGet', (url) => {
-  const serviceUrl = Cypress.env('serviceUrl');
+  //onst serviceUrl = Cypress.env('mobileServiceUrl');
 
-  cy.api("GET", serviceUrl + url).then((response) => {
+  cy.api("GET", url).then((response) => {
     expect(response.status).to.eq(200);
     cy.log(response.status);
     if (response.status === 200) {
@@ -87,8 +87,16 @@ Cypress.Commands.add('commonEncryptyDecryptGet', (url) => {
         cy.log('decrypted Response', decryptedResponse);
         const parsedResponse = JSON.parse(decryptedResponse);
         expect(parsedResponse.data).to.be.an('array');
-        cy.logResponseBody(parsedResponse);
-        cy.successLogResponseDetails(response.status, parsedResponse.statusCode, parsedResponse.data, parsedResponse.message)
+
+        if (parsedResponse.statusCode == 'Success' && parsedResponse.data != null) {
+          cy.logResponseBody(parsedResponse);
+          cy.successLogResponseDetails(response.status, parsedResponse.statusCode, parsedResponse.data, parsedResponse.message)
+         
+        }
+        else {
+          cy.errorLogResponseDetails(parsedResponse.statusCode, response.status, parsedResponse.data, parsedResponse.message);
+        }
+
       });
     } else {
       throw new Error('API request failed');
@@ -99,7 +107,7 @@ Cypress.Commands.add('commonEncryptyDecryptGet', (url) => {
 
 //AES Encrypt Descrypt get by query string function
 Cypress.Commands.add('commonEncryptyDecryptGetByQueryString', (url, queryString) => {
-  const serviceUrl = Cypress.env('serviceUrl'); // Replace with the actual service URL
+  //const serviceUrl = Cypress.env('serviceUrl'); // Replace with the actual service URL
   const header = {
     "Content-type": "application/json; charset=utf-8",
     'Access-Control-Allow-Methods': '*',
@@ -111,7 +119,7 @@ Cypress.Commands.add('commonEncryptyDecryptGetByQueryString', (url, queryString)
   if (queryString != null) {
     cy.aesEncryption(queryString).then(encryptedQueryString => {
       console.log('get encryptedQueryString', encryptedQueryString)
-      originURL = serviceUrl + url + "?" + encryptedQueryString;
+      originURL = url + "?" + encryptedQueryString;
       console.log('get originURL', originURL)
 
       return cy.api({
@@ -129,8 +137,14 @@ Cypress.Commands.add('commonEncryptyDecryptGetByQueryString', (url, queryString)
             const decryptedResponse = cy.aesDecryption(response.body).then((decryptedResponse) => {
               const parsedResponse = JSON.parse(decryptedResponse);
               cy.log('get Encrypted URL', originURL)
-              cy.logResponseBody(parsedResponse);
-              cy.successLogResponseDetails(response.status, parsedResponse.statusCode, parsedResponse.data, parsedResponse.message)
+              if (parsedResponse.statusCode == 'Success' && parsedResponse.data != null) {
+                cy.logResponseBody(parsedResponse);
+                cy.successLogResponseDetails(response.status, parsedResponse.statusCode, parsedResponse.data, parsedResponse.message)
+               
+              }
+              else {
+                cy.errorLogResponseDetails(parsedResponse.statusCode, response.status, parsedResponse.data, parsedResponse.message);
+              }
             });
           } else {
             return response.statusText;
@@ -139,7 +153,7 @@ Cypress.Commands.add('commonEncryptyDecryptGetByQueryString', (url, queryString)
       });
     });
   } else {
-    originURL = serviceUrl + url;
+    originURL = url;
   }
 });
 
@@ -147,7 +161,7 @@ Cypress.Commands.add('commonEncryptyDecryptGetByQueryString', (url, queryString)
 
 //AES Encrypt Descrypt post function
 Cypress.Commands.add('commonEncryptyDecryptPost', (url, requestBody) => {
-  const serviceUrl = Cypress.env('serviceUrl');
+  //const serviceUrl = Cypress.env('serviceUrl');
   cy.aesEncryption(JSON.stringify(requestBody)).then(encryptedResult => {
     cy.log('post encryptedResult', encryptedResult)
     const options = {
@@ -159,7 +173,7 @@ Cypress.Commands.add('commonEncryptyDecryptPost', (url, requestBody) => {
     };
 
     let originURL;
-    originURL = serviceUrl + url;
+    originURL = url;
     return cy.api({
       method: 'POST',
       url: originURL,
@@ -174,12 +188,13 @@ Cypress.Commands.add('commonEncryptyDecryptPost', (url, requestBody) => {
           const decryptedResponse = cy.aesDecryption(response.body).then((decryptedResponse) => {
             const parsedResponse = JSON.parse(decryptedResponse);
 
-            if (parsedResponse.statusCode == 'Error') {
-              cy.errorLogResponseDetails(parsedResponse.statusCode, response.status, parsedResponse.message);
-            }
-            else {
+            if (parsedResponse.statusCode == 'Success') {
               cy.logResponseBody(parsedResponse);
               cy.successLogResponseDetails(response.status, parsedResponse.statusCode, parsedResponse.data, parsedResponse.message)
+             
+            }
+            else {
+              cy.errorLogResponseDetails(parsedResponse.statusCode, response.status, parsedResponse.data, parsedResponse.message);
             }
           })
         } else {
@@ -195,7 +210,7 @@ Cypress.Commands.add('commonEncryptyDecryptPost', (url, requestBody) => {
 
 //AES Encrypt Descrypt post by query string function
 Cypress.Commands.add('commonEncryptyDecryptPostByQueryString', (url, queryString) => {
-  const serviceUrl = Cypress.env('serviceUrl'); // Replace with the actual service URL
+ // const serviceUrl = Cypress.env('serviceUrl'); // Replace with the actual service URL
   const header = {
     "Content-type": "application/json; charset=utf-8",
     'Access-Control-Allow-Methods': '*',
@@ -207,7 +222,7 @@ Cypress.Commands.add('commonEncryptyDecryptPostByQueryString', (url, queryString
   if (queryString != null) {
     cy.aesEncryption(queryString).then(encryptedQueryString => {
       console.log('get encryptedQueryString', encryptedQueryString)
-      originURL = serviceUrl + url + "?" + encryptedQueryString;
+      originURL = url + "?" + encryptedQueryString;
       console.log('get originURL', originURL)
 
       return cy.api({
@@ -225,8 +240,14 @@ Cypress.Commands.add('commonEncryptyDecryptPostByQueryString', (url, queryString
             const decryptedResponse = cy.aesDecryption(response.body).then((decryptedResponse) => {
               const parsedResponse = JSON.parse(decryptedResponse);
               cy.log('get Encrypted URL', originURL)
-              cy.logResponseBody(parsedResponse);
-              cy.successLogResponseDetails(response.status, parsedResponse.statusCode, parsedResponse.data, parsedResponse.message)
+              if (parsedResponse.statusCode == 'Success') {
+                cy.logResponseBody(parsedResponse);
+                cy.successLogResponseDetails(response.status, parsedResponse.statusCode, parsedResponse.data, parsedResponse.message)
+               
+              }
+              else {
+                cy.errorLogResponseDetails(parsedResponse.statusCode, response.status, parsedResponse.data, parsedResponse.message);
+              }
             });
           } else {
             return response.statusText;
@@ -235,6 +256,6 @@ Cypress.Commands.add('commonEncryptyDecryptPostByQueryString', (url, queryString
       });
     });
   } else {
-    originURL = serviceUrl + url;
+    originURL = url;
   }
 });

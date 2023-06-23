@@ -1,6 +1,6 @@
 import GroupPage from "../../pageObjects/groupAPIPO";
 
-describe('ERP - Group API Test Automation', () => {
+describe('ERP - Mobile API - Group API Test Automation', () => {
 
 
   before(() => {
@@ -13,7 +13,7 @@ describe('ERP - Group API Test Automation', () => {
       return false
     })
     const groupPage = new GroupPage()
-    groupPage.getAllGroupAPI()
+    groupPage.getAllGroupMobAPI()
 
   });
 
@@ -23,7 +23,7 @@ it("Verify getAllActiveGroups API", () => {
     return false
   })
   const groupPage = new GroupPage()
-  groupPage.getAllActiveGroupAPI()
+  groupPage.getAllActiveGroupMobAPI()
 
 });
 
@@ -33,7 +33,7 @@ it("Verify getGroupByID API", () => {
     return false
   })
   const groupPage = new GroupPage()
-  groupPage.getGroupByIdAPI()
+  groupPage.getGroupByIDMobAPI()
 
 });
 
@@ -43,7 +43,7 @@ it("Verify saveGroup API", () => {
     return false
   })
   const groupPage = new GroupPage()
-  groupPage.saveGroupAPI()
+  groupPage.saveGroupMobAPI()
 
 });
 

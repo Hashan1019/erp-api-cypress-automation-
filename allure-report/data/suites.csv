@@ -1,0 +1,7 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu Jun 22 17:04:45 IST 2023","Thu Jun 22 17:04:45 IST 2023","537","","ERP - Group API Test Automation","","","","Verify getGroupByID API",""
+"passed","Thu Jun 22 17:04:39 IST 2023","Thu Jun 22 17:04:41 IST 2023","1100","","ERP - Fields API Test Automation","","","","Verify GetAllFields API",""
+"passed","Thu Jun 22 17:04:45 IST 2023","Thu Jun 22 17:04:45 IST 2023","176","","ERP - Group API Test Automation","","","","Verify getAllGroups API",""
+"failed","Thu Jun 22 17:04:45 IST 2023","Thu Jun 22 17:04:46 IST 2023","425","","ERP - Group API Test Automation","","","","Verify saveGroup API",""
+"passed","Thu Jun 22 17:04:45 IST 2023","Thu Jun 22 17:04:45 IST 2023","175","","ERP - Group API Test Automation","","","","Verify getAllActiveGroups API",""
+"failed","Thu Jun 22 17:04:35 IST 2023","Thu Jun 22 17:04:35 IST 2023","455","","ERP - Factory API Test Automation","","","","Verify GetAllFactories API",""

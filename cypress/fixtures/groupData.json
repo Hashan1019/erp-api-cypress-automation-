@@ -1,0 +1,23 @@
+{
+  "getAllGroupsUrl": "api/Group/GetAllGroups",
+  "getGroupByIdUrl": "api/Group/GetGroupById",
+  "getAllActiveGroupUrl": "api/Group/GetAllActiveGroups",
+  "postSaveGroupUrl": "api/Group/SaveGroup",
+  "postUpdateGroupUrl": "http://20.198.233.3:5080/api/Group/UpdateGroup",
+  "queryStringGroupID": "id=-1",
+  "queryStringkSaveGroup": "groupID=99&groupCode=99&groupName=Agrithmics Testing Group&isActive=true&createdBy=0&createdDate=2023-06-22T08%3A53%3A30.961Z&modifiedBy=0&modifiedDate=2023-06-22T08%3A53%3A30.961Z",
+  
+  "groupID": "",
+  "groupCode": "99",
+  "groupName": "Agrithmics Testing",
+  "isActive": true,
+  "createdBy": 0,
+  "createdDate": "2023-06-20T08:50:56.367Z",
+  "modifiedBy": 0,
+  "modifiedDate": "2023-06-20T08:50:56.367Z",
+  "queryStringSaveGroup": null 
+
+}
+
+
+

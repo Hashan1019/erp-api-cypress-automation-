@@ -1,0 +1,9 @@
+allure-results/*
+allure-report/*
+node_modules/*
+cypress/reports/*
+cypress/videos/*
+cypress/screenshots/*
+**/.DS_Store
+log/*
+npm_install_debug/*
